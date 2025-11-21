@@ -1,0 +1,14 @@
+[
+  {
+    "Id": "b5b89201-6ac2-42ea-a103-e7d30de68414",
+    "ItemName": "meja",
+    "Category": "Mebel",
+    "Urgency": "Tinggi",
+    "RoomNumber": "203",
+    "Location": "Gk1",
+    "Description": "patah terbelah dua",
+    "ReporterName": "marcel",
+    "DateReported": "2025-11-22T02:19:39.5368407+08:00",
+    "Status": "Resolved"
+  }
+]
