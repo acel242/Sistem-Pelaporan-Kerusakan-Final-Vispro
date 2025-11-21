@@ -10,5 +10,17 @@
     "ReporterName": "marcel",
     "DateReported": "2025-11-22T02:19:39.5368407+08:00",
     "Status": "Resolved"
+  },
+  {
+    "Id": "a8d02d71-020b-4758-a539-e97c55e48f07",
+    "ItemName": "kursi",
+    "Category": "Mebel",
+    "Urgency": "Sedang",
+    "RoomNumber": "303",
+    "Location": "gk3",
+    "Description": "patah kaki ",
+    "ReporterName": "marcel",
+    "DateReported": "2025-11-22T02:39:49.5767697+08:00",
+    "Status": "Pending"
   }
 ]

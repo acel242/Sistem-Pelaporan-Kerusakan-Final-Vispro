@@ -9,10 +9,6 @@ namespace CampusReportApp
 {
     public partial class MainForm : Form
     {
-        private Panel panelMenu;
-        private Panel panelTitleBar;
-        private Label lblTitle;
-        private Panel panelDesktop;
         private Button btnReport;
         private Button btnAdmin;
         private string _userRole;
@@ -23,23 +19,11 @@ namespace CampusReportApp
             _userRole = userRole;
             _dataService = new DataService();
             InitializeComponent();
-            SetupModernUI();
+            SetupDynamicUI();
         }
 
-        private void SetupModernUI()
+        private void SetupDynamicUI()
         {
-            this.Text = "Campus Damage Reporting";
-            this.Size = new Size(1000, 650);
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.BackColor = ThemeColor.BackgroundColor;
-
-            // Menu Panel (Sidebar)
-            panelMenu = new Panel();
-            panelMenu.BackColor = ThemeColor.PrimaryColor;
-            panelMenu.Dock = DockStyle.Left;
-            panelMenu.Width = 240;
-            this.Controls.Add(panelMenu);
-
             // Logo/Title in Menu
             Panel panelLogo = new Panel();
             panelLogo.Dock = DockStyle.Top;
@@ -81,32 +65,8 @@ namespace CampusReportApp
                 panelMenu.Controls.Add(btnAdmin);
             }
 
-            // Title Bar
-            panelTitleBar = new Panel();
-            panelTitleBar.BackColor = ThemeColor.SecondaryColor;
-            panelTitleBar.Dock = DockStyle.Top;
-            panelTitleBar.Height = 80;
-            this.Controls.Add(panelTitleBar);
-
-            lblTitle = new Label();
+            // Set Title Text
             lblTitle.Text = _userRole == "Admin" ? "DASHBOARD ADMIN" : "DASHBOARD TAMU";
-            lblTitle.ForeColor = Color.White;
-            lblTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            lblTitle.AutoSize = true;
-            lblTitle.Location = new Point(25, 20);
-            panelTitleBar.Controls.Add(lblTitle);
-
-            // Desktop Panel
-            panelDesktop = new Panel();
-            panelDesktop.Dock = DockStyle.Fill;
-            panelDesktop.BackColor = ThemeColor.BackgroundColor;
-            panelDesktop.Padding = new Padding(20);
-            this.Controls.Add(panelDesktop);
-            
-            // Docking Order
-            this.Controls.SetChildIndex(panelMenu, this.Controls.Count - 1); 
-            this.Controls.SetChildIndex(panelTitleBar, this.Controls.Count - 2);
-            this.Controls.SetChildIndex(panelDesktop, 0); 
 
             // Dashboard Stats
             LoadDashboardStats();
