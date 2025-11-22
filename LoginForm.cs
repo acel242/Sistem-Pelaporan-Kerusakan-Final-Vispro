@@ -28,7 +28,8 @@ namespace CampusReportApp
 
         private void BtnLogin_Click(object sender, EventArgs e)
         {
-            if (txtUsername.Text == "admin" && txtPassword.Text == "admin123")
+            var dataService = new CampusReportApp.Services.DataService();
+            if (dataService.AuthenticateUser(txtUsername.Text, txtPassword.Text))
             {
                 IsAuthenticated = true;
                 UserRole = "Admin";

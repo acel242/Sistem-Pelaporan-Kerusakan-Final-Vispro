@@ -66,6 +66,11 @@ namespace CampusReportApp
             this.lblReporter = new System.Windows.Forms.Label();
             this.txtReporterName = new System.Windows.Forms.TextBox();
 
+            this.pnlImage = new System.Windows.Forms.Panel();
+            this.lblImage = new System.Windows.Forms.Label();
+            this.picPreview = new System.Windows.Forms.PictureBox();
+            this.btnUpload = new CampusReportApp.UI.ModernButton();
+
             this.mainPanel.SuspendLayout();
             this.table.SuspendLayout();
             this.pnlBottom.SuspendLayout();
@@ -76,217 +81,265 @@ namespace CampusReportApp
             this.pnlRoom.SuspendLayout();
             this.pnlDescription.SuspendLayout();
             this.pnlReporter.SuspendLayout();
+            this.pnlImage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picPreview)).BeginInit();
             this.SuspendLayout();
 
             // 
             // mainPanel
             // 
-            this.mainPanel.Controls.Add(this.pnlBottom);
             this.mainPanel.Controls.Add(this.table);
             this.mainPanel.Controls.Add(this.lblTitle);
+            this.mainPanel.Controls.Add(this.pnlBottom);
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPanel.Padding = new System.Windows.Forms.Padding(40);
+            this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Padding = new System.Windows.Forms.Padding(20);
+            this.mainPanel.Size = new System.Drawing.Size(600, 700);
+            this.mainPanel.TabIndex = 0;
+
             // 
             // lblTitle
             // 
             this.lblTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblTitle.Font = CampusReportApp.UI.ThemeColor.HeaderFont;
             this.lblTitle.ForeColor = CampusReportApp.UI.ThemeColor.PrimaryColor;
-            this.lblTitle.Height = 60;
+            this.lblTitle.Location = new System.Drawing.Point(20, 20);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Text = "Buat Laporan Baru";
+            this.lblTitle.Size = new System.Drawing.Size(560, 40);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "Formulir Laporan Kerusakan";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+
             // 
             // table
             // 
-            this.table.AutoSize = true;
             this.table.ColumnCount = 2;
             this.table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.table.Controls.Add(this.pnlItemName, 0, 0);
-            this.table.SetColumnSpan(this.pnlItemName, 2);
             this.table.Controls.Add(this.pnlCategory, 0, 1);
             this.table.Controls.Add(this.pnlUrgency, 1, 1);
             this.table.Controls.Add(this.pnlLocation, 0, 2);
             this.table.Controls.Add(this.pnlRoom, 1, 2);
             this.table.Controls.Add(this.pnlDescription, 0, 3);
-            this.table.SetColumnSpan(this.pnlDescription, 2);
             this.table.Controls.Add(this.pnlReporter, 0, 4);
-            this.table.SetColumnSpan(this.pnlReporter, 2);
-            this.table.Dock = System.Windows.Forms.DockStyle.Top;
+            this.table.Controls.Add(this.pnlImage, 0, 5);
+            this.table.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.table.Location = new System.Drawing.Point(20, 60);
             this.table.Name = "table";
-            this.table.RowCount = 5;
+            this.table.RowCount = 6;
+            this.table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F)); // Item
+            this.table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F)); // Cat/Urg
+            this.table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F)); // Loc/Room
+            this.table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F)); // Desc
+            this.table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F)); // Reporter
+            this.table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F)); // Image
+            this.table.Size = new System.Drawing.Size(560, 540);
+            this.table.TabIndex = 1;
+
+            // Spans
+            this.table.SetColumnSpan(this.pnlItemName, 2);
+            this.table.SetColumnSpan(this.pnlDescription, 2);
+            this.table.SetColumnSpan(this.pnlReporter, 2);
+            this.table.SetColumnSpan(this.pnlImage, 2);
+
             // 
             // pnlItemName
             // 
             this.pnlItemName.Controls.Add(this.txtItemName);
             this.pnlItemName.Controls.Add(this.lblItemName);
             this.pnlItemName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlItemName.Height = 70;
-            this.pnlItemName.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.pnlItemName.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
             // 
             // lblItemName
             // 
             this.lblItemName.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblItemName.Font = CampusReportApp.UI.ThemeColor.PrimaryFont;
-            this.lblItemName.ForeColor = CampusReportApp.UI.ThemeColor.TextColor;
-            this.lblItemName.Height = 25;
             this.lblItemName.Text = "Nama Barang:";
+            this.lblItemName.Height = 25;
             // 
             // txtItemName
             // 
-            this.txtItemName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtItemName.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtItemName.Font = CampusReportApp.UI.ThemeColor.PrimaryFont;
+            this.txtItemName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             // 
             // pnlCategory
             // 
             this.pnlCategory.Controls.Add(this.cmbCategory);
             this.pnlCategory.Controls.Add(this.lblCategory);
             this.pnlCategory.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlCategory.Height = 70;
-            this.pnlCategory.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.pnlCategory.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             // 
             // lblCategory
             // 
             this.lblCategory.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblCategory.Font = CampusReportApp.UI.ThemeColor.PrimaryFont;
-            this.lblCategory.ForeColor = CampusReportApp.UI.ThemeColor.TextColor;
-            this.lblCategory.Height = 25;
             this.lblCategory.Text = "Kategori:";
+            this.lblCategory.Height = 25;
             // 
             // cmbCategory
             // 
             this.cmbCategory.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbCategory.Font = CampusReportApp.UI.ThemeColor.PrimaryFont;
-            this.cmbCategory.Items.AddRange(new object[] { "Mebel", "Listrik", "Pipa/Air", "Peralatan IT", "Bangunan", "Lainnya" });
+            this.cmbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCategory.Items.AddRange(new object[] { "Fasilitas Kelas", "Kelistrikan", "Air/Pipa", "Internet/Jaringan", "Lainnya" });
+            this.cmbCategory.SelectedIndex = 0;
+
             // 
             // pnlUrgency
             // 
             this.pnlUrgency.Controls.Add(this.cmbUrgency);
             this.pnlUrgency.Controls.Add(this.lblUrgency);
             this.pnlUrgency.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlUrgency.Height = 70;
-            this.pnlUrgency.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.pnlUrgency.Margin = new System.Windows.Forms.Padding(10, 0, 0, 10);
             // 
             // lblUrgency
             // 
             this.lblUrgency.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblUrgency.Font = CampusReportApp.UI.ThemeColor.PrimaryFont;
-            this.lblUrgency.ForeColor = CampusReportApp.UI.ThemeColor.TextColor;
-            this.lblUrgency.Height = 25;
             this.lblUrgency.Text = "Urgensi:";
+            this.lblUrgency.Height = 25;
             // 
             // cmbUrgency
             // 
             this.cmbUrgency.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmbUrgency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbUrgency.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbUrgency.Font = CampusReportApp.UI.ThemeColor.PrimaryFont;
-            this.cmbUrgency.Items.AddRange(new object[] { "Rendah", "Sedang", "Tinggi", "Kritis" });
+            this.cmbUrgency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbUrgency.Items.AddRange(new object[] { "Rendah", "Sedang", "Tinggi", "Darurat" });
+            this.cmbUrgency.SelectedIndex = 0;
+
             // 
             // pnlLocation
             // 
             this.pnlLocation.Controls.Add(this.txtLocation);
             this.pnlLocation.Controls.Add(this.lblLocation);
             this.pnlLocation.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlLocation.Height = 70;
-            this.pnlLocation.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.pnlLocation.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             // 
             // lblLocation
             // 
             this.lblLocation.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblLocation.Font = CampusReportApp.UI.ThemeColor.PrimaryFont;
-            this.lblLocation.ForeColor = CampusReportApp.UI.ThemeColor.TextColor;
+            this.lblLocation.Text = "Lokasi (Gedung/Lantai):";
             this.lblLocation.Height = 25;
-            this.lblLocation.Text = "Gedung/Lokasi:";
             // 
             // txtLocation
             // 
-            this.txtLocation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLocation.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtLocation.Font = CampusReportApp.UI.ThemeColor.PrimaryFont;
+            this.txtLocation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+
             // 
             // pnlRoom
             // 
             this.pnlRoom.Controls.Add(this.txtRoomNumber);
             this.pnlRoom.Controls.Add(this.lblRoom);
             this.pnlRoom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlRoom.Height = 70;
-            this.pnlRoom.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.pnlRoom.Margin = new System.Windows.Forms.Padding(10, 0, 0, 10);
             // 
             // lblRoom
             // 
             this.lblRoom.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblRoom.Font = CampusReportApp.UI.ThemeColor.PrimaryFont;
-            this.lblRoom.ForeColor = CampusReportApp.UI.ThemeColor.TextColor;
-            this.lblRoom.Height = 25;
             this.lblRoom.Text = "Nomor Ruangan:";
+            this.lblRoom.Height = 25;
             // 
             // txtRoomNumber
             // 
-            this.txtRoomNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtRoomNumber.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtRoomNumber.Font = CampusReportApp.UI.ThemeColor.PrimaryFont;
+            this.txtRoomNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+
             // 
             // pnlDescription
             // 
             this.pnlDescription.Controls.Add(this.txtDescription);
             this.pnlDescription.Controls.Add(this.lblDescription);
             this.pnlDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlDescription.Height = 130;
-            this.pnlDescription.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.pnlDescription.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
             // 
             // lblDescription
             // 
             this.lblDescription.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblDescription.Font = CampusReportApp.UI.ThemeColor.PrimaryFont;
-            this.lblDescription.ForeColor = CampusReportApp.UI.ThemeColor.TextColor;
+            this.lblDescription.Text = "Deskripsi Masalah:";
             this.lblDescription.Height = 25;
-            this.lblDescription.Text = "Deskripsi Kerusakan:";
             // 
             // txtDescription
             // 
-            this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDescription.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtDescription.Font = CampusReportApp.UI.ThemeColor.PrimaryFont;
+            this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDescription.Multiline = true;
+
             // 
             // pnlReporter
             // 
             this.pnlReporter.Controls.Add(this.txtReporterName);
             this.pnlReporter.Controls.Add(this.lblReporter);
             this.pnlReporter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlReporter.Height = 70;
-            this.pnlReporter.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.pnlReporter.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
             // 
             // lblReporter
             // 
             this.lblReporter.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblReporter.Font = CampusReportApp.UI.ThemeColor.PrimaryFont;
-            this.lblReporter.ForeColor = CampusReportApp.UI.ThemeColor.TextColor;
+            this.lblReporter.Text = "Nama Pelapor (Opsional):";
             this.lblReporter.Height = 25;
-            this.lblReporter.Text = "Nama Pelapor:";
             // 
             // txtReporterName
             // 
-            this.txtReporterName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtReporterName.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtReporterName.Font = CampusReportApp.UI.ThemeColor.PrimaryFont;
+            this.txtReporterName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+
+            // 
+            // pnlImage
+            // 
+            this.pnlImage.Controls.Add(this.btnUpload);
+            this.pnlImage.Controls.Add(this.picPreview);
+            this.pnlImage.Controls.Add(this.lblImage);
+            this.pnlImage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlImage.Height = 150;
+            this.pnlImage.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            // 
+            // lblImage
+            // 
+            this.lblImage.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblImage.Font = CampusReportApp.UI.ThemeColor.PrimaryFont;
+            this.lblImage.ForeColor = CampusReportApp.UI.ThemeColor.TextColor;
+            this.lblImage.Height = 25;
+            this.lblImage.Text = "Foto Bukti:";
+            // 
+            // picPreview
+            // 
+            this.picPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picPreview.Dock = System.Windows.Forms.DockStyle.Left;
+            this.picPreview.Width = 120;
+            this.picPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            // 
+            // btnUpload
+            // 
+            this.btnUpload.Text = "Upload Foto";
+            this.btnUpload.Location = new System.Drawing.Point(130, 30);
+            this.btnUpload.Width = 120;
+            this.btnUpload.Height = 40;
+            this.btnUpload.Click += new System.EventHandler(this.BtnUpload_Click);
+
             // 
             // pnlBottom
             // 
             this.pnlBottom.Controls.Add(this.btnSubmit);
-            this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlBottom.Height = 80;
             this.pnlBottom.Padding = new System.Windows.Forms.Padding(0, 20, 0, 0);
+            
             // 
             // btnSubmit
             // 
             this.btnSubmit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSubmit.Height = 50;
             this.btnSubmit.Text = "Kirim Laporan";
             this.btnSubmit.Click += new System.EventHandler(this.BtnSubmit_Click);
 
@@ -296,23 +349,19 @@ namespace CampusReportApp
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = CampusReportApp.UI.ThemeColor.BackgroundColor;
-            this.ClientSize = new System.Drawing.Size(600, 750);
+            this.ClientSize = new System.Drawing.Size(600, 700);
             this.Controls.Add(this.mainPanel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
             this.Name = "ReportForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Lapor Kerusakan";
-
+            
             this.mainPanel.ResumeLayout(false);
             this.table.ResumeLayout(false);
             this.pnlBottom.ResumeLayout(false);
             this.pnlItemName.ResumeLayout(false);
             this.pnlItemName.PerformLayout();
             this.pnlCategory.ResumeLayout(false);
-            this.pnlCategory.PerformLayout();
             this.pnlUrgency.ResumeLayout(false);
-            this.pnlUrgency.PerformLayout();
             this.pnlLocation.ResumeLayout(false);
             this.pnlLocation.PerformLayout();
             this.pnlRoom.ResumeLayout(false);
@@ -321,6 +370,8 @@ namespace CampusReportApp
             this.pnlDescription.PerformLayout();
             this.pnlReporter.ResumeLayout(false);
             this.pnlReporter.PerformLayout();
+            this.pnlImage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picPreview)).EndInit();
             this.ResumeLayout(false);
         }
 
@@ -359,5 +410,10 @@ namespace CampusReportApp
         private System.Windows.Forms.Panel pnlReporter;
         private System.Windows.Forms.Label lblReporter;
         private System.Windows.Forms.TextBox txtReporterName;
+
+        private System.Windows.Forms.Panel pnlImage;
+        private System.Windows.Forms.Label lblImage;
+        private System.Windows.Forms.PictureBox picPreview;
+        private CampusReportApp.UI.ModernButton btnUpload;
     }
 }

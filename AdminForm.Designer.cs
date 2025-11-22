@@ -33,16 +33,24 @@ namespace CampusReportApp
         {
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.lblHeader = new System.Windows.Forms.Label();
+            
             this.pnlFilter = new System.Windows.Forms.Panel();
             this.lblSearch = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.lblFilter = new System.Windows.Forms.Label();
             this.cmbFilter = new System.Windows.Forms.ComboBox();
+            
+            this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.dgvReports = new System.Windows.Forms.DataGridView();
+            this.pnlDetails = new System.Windows.Forms.Panel();
+            this.picEvidence = new System.Windows.Forms.PictureBox();
+            this.lblEvidence = new System.Windows.Forms.Label();
+            
             this.pnlButtons = new System.Windows.Forms.Panel();
             this.btnResolve = new CampusReportApp.UI.ModernButton();
             this.btnDelete = new CampusReportApp.UI.ModernButton();
-            
+            this.btnExport = new CampusReportApp.UI.ModernButton();
+
             // Columns
             this.colItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,7 +61,13 @@ namespace CampusReportApp
 
             this.pnlHeader.SuspendLayout();
             this.pnlFilter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
+            this.splitContainer.Panel1.SuspendLayout();
+            this.splitContainer.Panel2.SuspendLayout();
+            this.splitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReports)).BeginInit();
+            this.pnlDetails.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picEvidence)).BeginInit();
             this.pnlButtons.SuspendLayout();
             this.SuspendLayout();
 
@@ -74,6 +88,7 @@ namespace CampusReportApp
             this.lblHeader.Location = new System.Drawing.Point(20, 20);
             this.lblHeader.Name = "lblHeader";
             this.lblHeader.Text = "Kelola Laporan";
+
             // 
             // pnlFilter
             // 
@@ -123,6 +138,26 @@ namespace CampusReportApp
             this.cmbFilter.Size = new System.Drawing.Size(150, 27);
             this.cmbFilter.SelectedIndex = 0;
             this.cmbFilter.SelectedIndexChanged += new System.EventHandler(this.CmbFilter_SelectedIndexChanged);
+
+            // 
+            // splitContainer
+            // 
+            this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer.Location = new System.Drawing.Point(0, 140); // Below Header + Filter
+            this.splitContainer.Name = "splitContainer";
+            // 
+            // splitContainer.Panel1
+            // 
+            this.splitContainer.Panel1.Controls.Add(this.dgvReports);
+            // 
+            // splitContainer.Panel2
+            // 
+            this.splitContainer.Panel2.Controls.Add(this.pnlDetails);
+            this.splitContainer.Panel2.Padding = new System.Windows.Forms.Padding(20);
+            this.splitContainer.Size = new System.Drawing.Size(1000, 460);
+            this.splitContainer.SplitterDistance = 650;
+            this.splitContainer.TabIndex = 5;
+
             // 
             // dgvReports
             // 
@@ -147,6 +182,7 @@ namespace CampusReportApp
             this.dgvReports.ReadOnly = true;
             this.dgvReports.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvReports.AutoGenerateColumns = false;
+            this.dgvReports.SelectionChanged += new System.EventHandler(this.DgvReports_SelectionChanged);
             
             // Columns
             this.colItemName.HeaderText = "Barang";
@@ -167,11 +203,38 @@ namespace CampusReportApp
             });
 
             // 
+            // pnlDetails
+            // 
+            this.pnlDetails.BackColor = System.Drawing.Color.White;
+            this.pnlDetails.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlDetails.Controls.Add(this.picEvidence);
+            this.pnlDetails.Controls.Add(this.lblEvidence);
+            this.pnlDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlDetails.Name = "pnlDetails";
+            // 
+            // lblEvidence
+            // 
+            this.lblEvidence.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblEvidence.Font = CampusReportApp.UI.ThemeColor.HeaderFont;
+            this.lblEvidence.ForeColor = CampusReportApp.UI.ThemeColor.PrimaryColor;
+            this.lblEvidence.Height = 40;
+            this.lblEvidence.Text = "Bukti Foto";
+            this.lblEvidence.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // picEvidence
+            // 
+            this.picEvidence.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picEvidence.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picEvidence.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.picEvidence.Name = "picEvidence";
+
+            // 
             // pnlButtons
             // 
             this.pnlButtons.BackColor = CampusReportApp.UI.ThemeColor.BackgroundColor;
             this.pnlButtons.Controls.Add(this.btnResolve);
             this.pnlButtons.Controls.Add(this.btnDelete);
+            this.pnlButtons.Controls.Add(this.btnExport);
             this.pnlButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlButtons.Height = 100;
             this.pnlButtons.Name = "pnlButtons";
@@ -193,6 +256,15 @@ namespace CampusReportApp
             this.btnDelete.Size = new System.Drawing.Size(180, 40);
             this.btnDelete.Text = "🗑️ Hapus Laporan";
             this.btnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
+            // 
+            // btnExport
+            // 
+            this.btnExport.BackColor = CampusReportApp.UI.ThemeColor.SecondaryColor;
+            this.btnExport.Location = new System.Drawing.Point(470, 30);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(180, 40);
+            this.btnExport.Text = "📄 Export CSV";
+            this.btnExport.Click += new System.EventHandler(this.BtnExport_Click);
 
             // 
             // AdminForm
@@ -201,9 +273,9 @@ namespace CampusReportApp
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = CampusReportApp.UI.ThemeColor.BackgroundColor;
             this.ClientSize = new System.Drawing.Size(1000, 700);
-            this.Controls.Add(this.dgvReports);
-            this.Controls.Add(this.pnlButtons);
+            this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.pnlFilter);
+            this.Controls.Add(this.pnlButtons);
             this.Controls.Add(this.pnlHeader);
             this.Name = "AdminForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -213,7 +285,13 @@ namespace CampusReportApp
             this.pnlHeader.PerformLayout();
             this.pnlFilter.ResumeLayout(false);
             this.pnlFilter.PerformLayout();
+            this.splitContainer.Panel1.ResumeLayout(false);
+            this.splitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
+            this.splitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvReports)).EndInit();
+            this.pnlDetails.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picEvidence)).EndInit();
             this.pnlButtons.ResumeLayout(false);
             this.ResumeLayout(false);
         }
@@ -231,11 +309,17 @@ namespace CampusReportApp
         private System.Windows.Forms.Panel pnlButtons;
         private CampusReportApp.UI.ModernButton btnResolve;
         private CampusReportApp.UI.ModernButton btnDelete;
+        private CampusReportApp.UI.ModernButton btnExport;
         private System.Windows.Forms.DataGridViewTextBoxColumn colItemName;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCategory;
         private System.Windows.Forms.DataGridViewTextBoxColumn colLocation;
         private System.Windows.Forms.DataGridViewTextBoxColumn colReporter;
         private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDate;
+        
+        private System.Windows.Forms.SplitContainer splitContainer;
+        private System.Windows.Forms.Panel pnlDetails;
+        private System.Windows.Forms.Label lblEvidence;
+        private System.Windows.Forms.PictureBox picEvidence;
     }
 }

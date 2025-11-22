@@ -34,25 +34,44 @@ namespace CampusReportApp
         {
             var reports = _dataService.LoadReports();
 
-            // Filter
-            if (cmbFilter.SelectedItem.ToString() != "Semua")
+            // Filter by Search
+            if (!string.IsNullOrEmpty(txtSearch.Text))
             {
-                reports = reports.Where(r => r.Status == cmbFilter.SelectedItem.ToString()).ToList();
+                reports = reports.Where(r => 
+                    r.ItemName.ToLower().Contains(txtSearch.Text.ToLower()) || 
+                    r.ReporterName.ToLower().Contains(txtSearch.Text.ToLower())
+                ).ToList();
             }
 
-            // Search
-            if (!string.IsNullOrWhiteSpace(txtSearch.Text))
+            // Filter by Status
+            if (cmbFilter.SelectedIndex > 0)
             {
-                string term = txtSearch.Text.ToLower();
-                reports = reports.Where(r => 
-                    r.ItemName.ToLower().Contains(term) || 
-                    r.ReporterName.ToLower().Contains(term) ||
-                    r.Location.ToLower().Contains(term)
-                ).ToList();
+                string status = cmbFilter.SelectedItem.ToString();
+                reports = reports.Where(r => r.Status == status).ToList();
             }
 
             dgvReports.DataSource = null;
             dgvReports.DataSource = reports;
+        }
+
+        private void DgvReports_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvReports.SelectedRows.Count > 0)
+            {
+                var report = (ReportModel)dgvReports.SelectedRows[0].DataBoundItem;
+                if (!string.IsNullOrEmpty(report.ImagePath) && System.IO.File.Exists(report.ImagePath))
+                {
+                    picEvidence.Image = Image.FromFile(report.ImagePath);
+                }
+                else
+                {
+                    picEvidence.Image = null;
+                }
+            }
+            else
+            {
+                picEvidence.Image = null;
+            }
         }
 
         private void BtnResolve_Click(object sender, EventArgs e)
@@ -60,8 +79,7 @@ namespace CampusReportApp
             if (dgvReports.SelectedRows.Count > 0)
             {
                 var report = (ReportModel)dgvReports.SelectedRows[0].DataBoundItem;
-                report.Status = "Resolved";
-                _dataService.UpdateReport(report);
+                _dataService.UpdateReportStatus(report.Id, "Resolved");
                 LoadData();
                 MessageBox.Show("Laporan ditandai selesai.", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -72,12 +90,61 @@ namespace CampusReportApp
             if (dgvReports.SelectedRows.Count > 0)
             {
                 var report = (ReportModel)dgvReports.SelectedRows[0].DataBoundItem;
-                if (MessageBox.Show($"Apakah Anda yakin ingin menghapus laporan untuk {report.ItemName}?", "Konfirmasi Hapus", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                if (MessageBox.Show("Hapus laporan ini?", "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
                     _dataService.DeleteReport(report.Id);
                     LoadData();
                 }
             }
+        }
+
+        private void BtnExport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var reports = (List<ReportModel>)dgvReports.DataSource;
+                if (reports == null || reports.Count == 0)
+                {
+                    MessageBox.Show("Tidak ada data untuk diexport.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "CSV File|*.csv";
+                    sfd.FileName = "Laporan_Kampus_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".csv";
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        using (System.IO.StreamWriter sw = new System.IO.StreamWriter(sfd.FileName))
+                        {
+                            // Header
+                            sw.WriteLine("ID,Barang,Kategori,Lokasi,Pelapor,Deskripsi,Status,Tanggal,Foto");
+
+                            // Data
+                            foreach (var r in reports)
+                            {
+                                string line = $"{r.Id},{EscapeCsv(r.ItemName)},{EscapeCsv(r.Category)},{EscapeCsv(r.Location)},{EscapeCsv(r.ReporterName)},{EscapeCsv(r.Description)},{r.Status},{r.DateReported},{EscapeCsv(r.ImagePath)}";
+                                sw.WriteLine(line);
+                            }
+                        }
+                        MessageBox.Show("Export berhasil!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error export: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private string EscapeCsv(string field)
+        {
+            if (string.IsNullOrEmpty(field)) return "";
+            if (field.Contains(",") || field.Contains("\"") || field.Contains("\n"))
+            {
+                return "\"" + field.Replace("\"", "\"\"") + "\"";
+            }
+            return field;
         }
     }
 }
